@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>NIKI_TSUNE</title>
+
+<meta name="theme-color" content="#050816">
 
 <link rel="icon" href="favicon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <link rel="stylesheet" href="style.css">
 
@@ -24,22 +28,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <body>
 
+<!-- Загрузочный экран -->
+
+<div id="loader">
+
+<div class="loader-logo">
+
+NIKI_TSUNE
+
+</div>
+
+<div class="loader-line">
+
+<div class="loader-progress"></div>
+
+</div>
+
+<p>Loading...</p>
+
+</div>
+
+<!-- Космос -->
+
 <canvas id="space"></canvas>
 
-<div class="noise"></div>
+<div id="cursorGlow"></div>
+
+<div class="nebula nebula1"></div>
+<div class="nebula nebula2"></div>
+
+<!-- Карточка -->
 
 <div class="card">
 
+<div class="shine"></div>
+
 <div class="avatar">
 
-<img src="avatar.jpg">
+<img
+src="avatar.jpg"
+alt="avatar">
 
-<div class="ring"></div>
+<div class="ring ring1"></div>
+
+<div class="ring ring2"></div>
 
 </div>
 
 <h1 class="nickname">
+
 NIKI_TSUNE
+
 </h1>
 
 <p id="typing"></p>
@@ -51,9 +90,17 @@ class="btn telegram"
 href="https://t.me/communards_house"
 target="_blank">
 
+<div class="left">
+
 <i class="fa-brands fa-telegram"></i>
 
-<span>Telegram Канал</span>
+<span>
+
+Telegram Канал
+
+</span>
+
+</div>
 
 <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
@@ -64,22 +111,37 @@ class="btn telegram"
 href="https://t.me/communards_leto"
 target="_blank">
 
+<div class="left">
+
 <i class="fa-brands fa-telegram"></i>
 
-<span>Личный Telegram</span>
+<span>
+
+Личный Telegram
+
+</span>
+
+</div>
 
 <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
 </a>
-
 <a
 class="btn vk"
 href="https://vk.ru/niki_tsune"
 target="_blank">
 
+<div class="left">
+
 <i class="fa-brands fa-vk"></i>
 
-<span>VK</span>
+<span>
+
+VK Профиль
+
+</span>
+
+</div>
 
 <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
@@ -90,9 +152,17 @@ class="btn steam"
 href="https://steamcommunity.com/profiles/76561199226991663/"
 target="_blank">
 
+<div class="left">
+
 <i class="fa-brands fa-steam"></i>
 
-<span>Steam</span>
+<span>
+
+Steam
+
+</span>
+
+</div>
 
 <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
@@ -102,25 +172,45 @@ target="_blank">
 
 <div class="social">
 
-<a href="https://t.me/communards_leto" target="_blank">
+<a
+href="https://t.me/communards_leto"
+target="_blank">
+
 <i class="fa-brands fa-telegram"></i>
+
 </a>
 
-<a href="https://vk.ru/niki_tsune" target="_blank">
+<a
+href="https://vk.ru/niki_tsune"
+target="_blank">
+
 <i class="fa-brands fa-vk"></i>
+
 </a>
 
-<a href="https://steamcommunity.com/profiles/76561199226991663/" target="_blank">
+<a
+href="https://steamcommunity.com/profiles/76561199226991663/"
+target="_blank">
+
 <i class="fa-brands fa-steam"></i>
+
 </a>
 
 </div>
 
-<footer>
+<div class="footer">
 
-Made with ❤️ by NIKI_TSUNE
+<div class="line"></div>
 
-</footer>
+<p>
+
+Made with ❤️ by
+
+<b>NIKI_TSUNE</b>
+
+</p>
+
+</div>
 
 </div>
 
