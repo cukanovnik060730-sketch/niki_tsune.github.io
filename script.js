@@ -181,7 +181,10 @@ const typing = document.getElementById("typing");
 
 const words = [
     "Developer",
-    "Linux User",
+    "Beta Tester",
+    "Game Writer",
+    "AI Explorer",
+    "Create",
     "Gamer",
     "Open Source"
 ];
