@@ -1,31 +1,46 @@
-// =========================
-// Космос
-// =========================
+// ===============================
+// NIKI_TSUNE V3.0
+// Part 1
+// ===============================
 
 const canvas = document.getElementById("space");
 const ctx = canvas.getContext("2d");
 
-function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
-resize();
-window.addEventListener("resize", resize);
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// ===============================
+// ЗВЁЗДЫ
+// ===============================
 
 const stars = [];
 
-for (let i = 0; i < 500; i++) {
+for (let i = 0; i < 900; i++) {
+
     stars.push({
+
         x: Math.random() * canvas.width,
+
         y: Math.random() * canvas.height,
-        r: Math.random() * 2,
-        speed: Math.random() * 0.4 + 0.1,
-        alpha: Math.random()
+
+        size: Math.random() * 2.2,
+
+        speed: Math.random() * 0.35 + 0.05,
+
+        alpha: Math.random(),
+
+        blink: Math.random() * 0.02
+
     });
+
 }
 
-function animate() {
+function drawStars(){
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -34,97 +49,161 @@ function animate() {
         star.y += star.speed;
 
         if(star.y > canvas.height){
+
             star.y = 0;
-            star.x = Math.random()*canvas.width;
+            star.x = Math.random() * canvas.width;
+
         }
 
-        star.alpha += (Math.random()-0.5)*0.03;
+        star.alpha += star.blink;
 
-        if(star.alpha < 0.2) star.alpha = 0.2;
-        if(star.alpha > 1) star.alpha = 1;
+        if(star.alpha > 1 || star.alpha < 0.2){
+
+            star.blink *= -1;
+
+        }
 
         ctx.beginPath();
-        ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
-        ctx.fillStyle=rgba(255,255,255,${star.alpha});
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle =
+        `rgba(255,255,255,${star.alpha})`;
+
         ctx.fill();
 
     });
 
-    requestAnimationFrame(animate);
 }
 
-animate();
+const comets = [];
 
+function spawnComet(){
 
-// =========================
-// Кометы
-// =========================
+    comets.push({
 
-function comet(){
+        x:-200,
 
-    const x=Math.random()*canvas.width;
-    const y=Math.random()*250;
+        y:Math.random()*250,
 
-    let len=0;
+        speed:8+Math.random()*6,
 
-    function draw(){
+        length:180+Math.random()*120
+
+    });
+
+}
+
+setInterval(spawnComet,4500);
+
+function drawComets(){
+
+    for(let i=comets.length-1;i>=0;i--){
+
+        let c=comets[i];
+
+        c.x+=c.speed;
+
+        c.y+=c.speed*0.45;
+
+        const g=ctx.createLinearGradient(
+            c.x,
+            c.y,
+            c.x+c.length,
+            c.y+c.length*.3
+        );
+
+        g.addColorStop(0,"rgba(255,255,255,.9)");
+        g.addColorStop(1,"rgba(255,255,255,0)");
 
         ctx.beginPath();
 
-        ctx.moveTo(x+len,y+len*0.5);
+        ctx.moveTo(c.x,c.y);
 
-        ctx.lineTo(x+len+120,y+len*0.5+30);
+        ctx.lineTo(
+            c.x+c.length,
+            c.y+c.length*.3
+        );
 
-        ctx.strokeStyle="rgba(255,255,255,.8)";
+        ctx.strokeStyle=g;
+
         ctx.lineWidth=2;
 
         ctx.stroke();
 
-        len+=10;
+        if(c.x>canvas.width+400){
 
-        if(len<320){
-            requestAnimationFrame(draw);
+            comets.splice(i,1);
+
         }
 
     }
 
-    draw();
+}
+
+function animate(){
+
+    drawStars();
+
+    drawComets();
+
+    requestAnimationFrame(animate);
 
 }
 
-setInterval(comet,6000);
+animate();
 
+// ===============================
+// CURSOR GLOW
+// ===============================
 
-// =========================
-// Печатающийся текст
-// =========================
+const glow =
+document.getElementById("cursorGlow");
+
+document.addEventListener("mousemove",e=>{
+
+    glow.style.left=e.clientX+"px";
+
+    glow.style.top=e.clientY+"px";
+
+});
+// =====================================
+// Typing Effect
+// =====================================
 
 const typing = document.getElementById("typing");
 
 const words = [
     "Developer",
+    "Linux User",
     "Gamer",
-    "Linux",
     "Open Source"
 ];
 
-let word=0;
-let letter=0;
-let erase=false;
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-function type(){
+function typingEffect(){
 
-    const current = words[word];
+    const current = words[wordIndex];
 
-    if(!erase){
+    if(!deleting){
 
-        typing.textContent=current.substring(0,letter++);
+        typing.textContent =
+            current.substring(0,charIndex++);
 
-        if(letter>current.length){
+        if(charIndex > current.length){
 
-            erase=true;
+            deleting = true;
 
-            setTimeout(type,1500);
+            setTimeout(typingEffect,1500);
 
             return;
 
@@ -132,73 +211,225 @@ function type(){
 
     }else{
 
-        typing.textContent=current.substring(0,--letter);
+        typing.textContent =
+            current.substring(0,--charIndex);
 
-        if(letter===0){
+        if(charIndex <= 0){
 
-            erase=false;
+            deleting = false;
 
-            word++;
+            wordIndex++;
 
-            if(word>=words.length)
-                word=0;
+            if(wordIndex >= words.length)
+                wordIndex = 0;
 
         }
 
     }
 
-    setTimeout(type,80);
+    setTimeout(typingEffect,70);
 
 }
 
-type();
+typingEffect();
 
 
-// =========================
-// Наклон карточки
-// =========================
+// =====================================
+// Loader
+// =====================================
 
-const card=document.querySelector(".card");
+window.addEventListener("load",()=>{
 
-document.addEventListener("mousemove",(e)=>{
+    setTimeout(()=>{
 
-    const x=(window.innerWidth/2-e.clientX)/35;
+        const loader =
+            document.getElementById("loader");
 
-    const y=(window.innerHeight/2-e.clientY)/35;
+        loader.style.opacity="0";
 
-    card.style.transform=
-        rotateY(${x}deg) rotateX(${-y}deg);
+        loader.style.pointerEvents="none";
+
+        setTimeout(()=>{
+
+            loader.remove();
+
+        },1000);
+
+    },2200);
+
+});
+
+
+// =====================================
+// Card 3D
+// =====================================
+
+const card =
+document.querySelector(".card");
+
+document.addEventListener("mousemove",e=>{
+
+    const rect =
+        card.getBoundingClientRect();
+
+    const x =
+        (e.clientX-rect.left)/rect.width;
+
+    const y =
+        (e.clientY-rect.top)/rect.height;
+
+    const rotateY =
+        (x-.5)*16;
+
+    const rotateX =
+        (.5-y)*16;
+
+    card.style.transform =
+
+`rotateX(${rotateX}deg)
+ rotateY(${rotateY}deg)
+ translateZ(0)`;
 
 });
 
 document.addEventListener("mouseleave",()=>{
 
-    card.style.transform="rotateX(0deg) rotateY(0deg)";
+    card.style.transform=
+    "rotateX(0deg) rotateY(0deg)";
 
 });
 
 
-// =========================
-// Плавное появление
-// =========================
+// =====================================
+// Shine Effect
+// =====================================
 
-card.animate(
+const shine =
+document.querySelector(".shine");
 
-[
-{
-opacity:0,
-transform:"translateY(80px)"
-},
-{
-opacity:1,
-transform:"translateY(0)"
+document.addEventListener("mousemove",e=>{
+
+    const rect =
+        card.getBoundingClientRect();
+
+    const x =
+        ((e.clientX-rect.left)
+        /rect.width)*100;
+
+    const y =
+        ((e.clientY-rect.top)
+        /rect.height)*100;
+
+    shine.style.background =
+
+`radial-gradient(circle at ${x}% ${y}%,
+rgba(255,255,255,.18),
+transparent 45%)`;
+
+});
+
+
+// =====================================
+// Floating Animation
+// =====================================
+
+let t = 0;
+
+function floating(){
+
+    t += 0.01;
+
+    card.style.marginTop =
+        Math.sin(t)*6 + "px";
+
+    requestAnimationFrame(floating);
+
 }
-],
 
-{
-duration:1200,
-fill:"forwards",
-easing:"ease-out"
-}
+floating();
 
+
+// =====================================
+// Buttons
+// =====================================
+
+document.querySelectorAll(".btn")
+.forEach(btn=>{
+
+    btn.addEventListener("mouseenter",()=>{
+
+        btn.animate([
+
+            {transform:"scale(1)"},
+
+            {transform:"scale(1.03)"},
+
+            {transform:"scale(1.01)"}
+
+        ],{
+
+            duration:250,
+
+            fill:"forwards"
+
+        });
+
+    });
+
+});
+
+
+// =====================================
+// Social Hover
+// =====================================
+
+document.querySelectorAll(".social a")
+.forEach(icon=>{
+
+    icon.addEventListener("mouseenter",()=>{
+
+        icon.animate([
+
+            {transform:"translateY(0)"},
+
+            {transform:"translateY(-8px) scale(1.18)"}
+
+        ],{
+
+            duration:220,
+
+            fill:"forwards"
+
+        });
+
+    });
+
+    icon.addEventListener("mouseleave",()=>{
+
+        icon.animate([
+
+            {transform:"translateY(-8px) scale(1.18)"},
+
+            {transform:"translateY(0) scale(1)"}
+
+        ],{
+
+            duration:220,
+
+            fill:"forwards"
+
+        });
+
+    });
+
+});
+
+
+// =====================================
+// Console
+// =====================================
+
+console.log(
+"%cNIKI_TSUNE V3.0",
+"color:#38bdf8;font-size:20px;font-weight:bold;"
 );
