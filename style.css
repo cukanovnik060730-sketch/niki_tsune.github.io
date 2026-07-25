@@ -1,157 +1,364 @@
+/* ==========================
+   NIKI_TSUNE V3.0
+========================== */
+
 :root{
-    --bg:#050816;
-    --card:rgba(255,255,255,.08);
-    --border:rgba(255,255,255,.15);
-    --text:#ffffff;
-    --muted:#bfc7d8;
-    --blue:#38bdf8;
-    --purple:#8b5cf6;
+
+--bg:#050816;
+
+--card:rgba(255,255,255,.08);
+
+--border:rgba(255,255,255,.12);
+
+--text:#fff;
+
+--blue:#39bdf8;
+
+--purple:#8b5cf6;
+
+--cyan:#67e8f9;
+
+--radius:28px;
+
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
 }
 
-html,body{
-    width:100%;
-    height:100%;
-}
-
+html,
 body{
-    background:var(--bg);
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Inter,sans-serif;
-    color:white;
-}
 
-/* ===========================
-    КОСМОС
-=========================== */
+width:100%;
 
-#space{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:-5;
-}
-
-.noise{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.05;
-    background-image:
-    radial-gradient(circle,#fff 1px,transparent 1px);
-    background-size:8px 8px;
-    animation:noise 8s linear infinite;
-}
-
-@keyframes noise{
-    from{transform:translateY(0);}
-    to{transform:translateY(200px);}
-}
-
-/* ===========================
-    КАРТОЧКА
-=========================== */
-
-.card{
-
-position:relative;
-
-width:390px;
-
-padding:40px;
-
-border-radius:30px;
-
-background:var(--card);
-
-border:1px solid var(--border);
-
-backdrop-filter:blur(25px);
-
-box-shadow:
-0 0 80px rgba(56,189,248,.15),
-0 0 180px rgba(139,92,246,.12);
-
-transition:.4s;
+height:100%;
 
 overflow:hidden;
 
 }
 
-.card::before{
+body{
 
-content:"";
+background:var(--bg);
+
+font-family:Inter,sans-serif;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+color:white;
+
+position:relative;
+
+perspective:1800px;
+
+}
+
+/* ==========================
+   Canvas
+========================== */
+
+#space{
+
+position:fixed;
+
+inset:0;
+
+width:100%;
+
+height:100%;
+
+z-index:-20;
+
+}
+
+/* ==========================
+   Nebula
+========================== */
+
+.nebula{
+
+position:fixed;
+
+width:700px;
+
+height:700px;
+
+border-radius:50%;
+
+filter:blur(120px);
+
+opacity:.25;
+
+z-index:-15;
+
+animation:float 18s ease-in-out infinite;
+
+}
+
+.nebula1{
+
+background:#2563eb;
+
+left:-180px;
+
+top:-150px;
+
+}
+
+.nebula2{
+
+background:#7c3aed;
+
+right:-220px;
+
+bottom:-200px;
+
+animation-delay:7s;
+
+}
+
+@keyframes float{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-70px);
+
+}
+
+}
+
+/* ==========================
+   Loader
+========================== */
+
+#loader{
+
+position:fixed;
+
+inset:0;
+
+background:#050816;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+gap:25px;
+
+z-index:9999;
+
+transition:1s;
+
+}
+
+.loader-logo{
+
+font-size:42px;
+
+font-family:Orbitron,sans-serif;
+
+font-weight:900;
+
+letter-spacing:4px;
+
+color:white;
+
+text-shadow:
+
+0 0 20px var(--blue),
+
+0 0 60px var(--purple);
+
+}
+
+.loader-line{
+
+width:260px;
+
+height:6px;
+
+background:#111827;
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.loader-progress{
+
+width:0;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+var(--blue),
+
+var(--purple));
+
+animation:loading 2.4s forwards;
+
+}
+
+@keyframes loading{
+
+100%{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================
+   Cursor Glow
+========================== */
+
+#cursorGlow{
+
+position:fixed;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(56,189,248,.20),
+
+transparent 70%);
+
+pointer-events:none;
+
+transform:translate(-50%,-50%);
+
+z-index:-5;
+
+transition:.08s linear;
+
+}
+
+/* ==========================
+   Card
+========================== */
+
+.card{
+
+position:relative;
+
+width:430px;
+
+padding:38px;
+
+border-radius:var(--radius);
+
+background:var(--card);
+
+backdrop-filter:blur(28px);
+
+border:1px solid var(--border);
+
+box-shadow:
+
+0 0 40px rgba(56,189,248,.18),
+
+0 0 90px rgba(139,92,246,.10);
+
+transform-style:preserve-3d;
+
+transition:
+
+transform .12s linear,
+
+box-shadow .3s;
+
+overflow:visible;
+
+}
+
+.card:hover{
+
+box-shadow:
+
+0 0 55px rgba(56,189,248,.28),
+
+0 0 130px rgba(139,92,246,.18);
+
+}
+
+.shine{
 
 position:absolute;
 
-width:180%;
+inset:0;
 
-height:180%;
+border-radius:inherit;
 
-left:-40%;
+background:
 
-top:-40%;
+linear-gradient(
 
-background:conic-gradient(
-
-transparent,
-
-rgba(56,189,248,.18),
+120deg,
 
 transparent,
 
-rgba(139,92,246,.18),
+rgba(255,255,255,.06),
 
-transparent
-
-);
-
-animation:rotate 12s linear infinite;
+transparent);
 
 pointer-events:none;
 
 }
-
-.card>*{
-
-position:relative;
-
-z-index:2;
-
-}
-
-@keyframes rotate{
-
-to{
-
-transform:rotate(360deg);
-
-}
-
-}
-
-/* ===========================
-    АВАТАР
-=========================== */
+/* ==========================
+   Avatar
+========================== */
 
 .avatar{
 
-width:140px;
+width:150px;
 
-height:140px;
+height:150px;
 
-margin:auto;
+margin:0 auto 25px;
 
 position:relative;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
 
 }
 
@@ -165,13 +372,17 @@ border-radius:50%;
 
 object-fit:cover;
 
-border:4px solid rgba(255,255,255,.15);
+position:relative;
+
+z-index:5;
+
+border:4px solid rgba(255,255,255,.12);
 
 box-shadow:
 
-0 0 35px #38bdf8,
+0 0 25px rgba(56,189,248,.45),
 
-0 0 80px rgba(56,189,248,.35);
+0 0 80px rgba(56,189,248,.18);
 
 }
 
@@ -179,17 +390,43 @@ box-shadow:
 
 position:absolute;
 
-inset:-10px;
-
 border-radius:50%;
 
-border:2px solid rgba(56,189,248,.5);
-
-animation:ring 5s linear infinite;
+pointer-events:none;
 
 }
 
-@keyframes ring{
+.ring1{
+
+width:170px;
+
+height:170px;
+
+border-top:2px solid var(--blue);
+
+border-right:2px solid transparent;
+
+animation:ring1 4s linear infinite;
+
+}
+
+.ring2{
+
+width:190px;
+
+height:190px;
+
+border-bottom:2px solid var(--purple);
+
+border-left:2px solid transparent;
+
+animation:ring2 7s linear infinite;
+
+opacity:.7;
+
+}
+
+@keyframes ring1{
 
 100%{
 
@@ -199,25 +436,31 @@ transform:rotate(360deg);
 
 }
 
-/* ===========================
-    НИК
-=========================== */
+@keyframes ring2{
+
+100%{
+
+transform:rotate(-360deg);
+
+}
+
+}
+
+/* ==========================
+   Nickname
+========================== */
 
 .nickname{
 
-margin-top:25px;
-
-text-align:center;
-
 font-family:Orbitron,sans-serif;
 
-font-size:34px;
+font-size:36px;
 
 font-weight:900;
 
-background:
+text-align:center;
 
-linear-gradient(
+background:linear-gradient(
 90deg,
 #38bdf8,
 #8b5cf6,
@@ -230,13 +473,17 @@ background-size:300%;
 
 -webkit-text-fill-color:transparent;
 
-animation:gradient 5s linear infinite;
+animation:gradient 6s linear infinite;
+
+text-shadow:
+
+0 0 20px rgba(56,189,248,.25);
 
 }
 
 @keyframes gradient{
 
-to{
+100%{
 
 background-position:300%;
 
@@ -246,21 +493,25 @@ background-position:300%;
 
 #typing{
 
-margin-top:10px;
+height:28px;
+
+margin-top:14px;
 
 margin-bottom:30px;
 
-height:22px;
-
 text-align:center;
 
-color:var(--muted);
+font-size:15px;
+
+color:#b8c5d6;
+
+letter-spacing:2px;
 
 }
 
-/* ===========================
-    КНОПКИ
-=========================== */
+/* ==========================
+   Links
+========================== */
 
 .links{
 
@@ -268,7 +519,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:16px;
+gap:18px;
 
 }
 
@@ -276,13 +527,138 @@ gap:16px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+
+align-items:center;
 
 padding:18px 22px;
 
 border-radius:18px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:white;
+
+text-decoration:none;
+
+transition:.25s;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.btn .left{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+}
+
+.btn i{
+
+font-size:22px;
+
+}
+
+.btn::before{
+
+content:"";
+
+position:absolute;
+
+left:-120%;
+
+top:0;
+
+width:60%;
+
+height:100%;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.18),
+transparent);
+
+transform:skewX(-25deg);
+
+transition:.7s;
+
+}
+
+.btn:hover::before{
+
+left:180%;
+
+}
+
+.btn:hover{
+
+transform:translateY(-4px) scale(1.02);
+
+}
+
+.telegram:hover{
+
+border-color:#229ED9;
+
+box-shadow:0 0 30px rgba(34,158,217,.5);
+
+}
+
+.vk:hover{
+
+border-color:#0077ff;
+
+box-shadow:0 0 30px rgba(0,119,255,.45);
+
+}
+
+.steam:hover{
+
+border-color:#66C0F4;
+
+box-shadow:0 0 30px rgba(102,192,244,.45);
+
+}
+/* ==========================
+   Social
+========================== */
+
+.social{
+
+display:flex;
+
+justify-content:center;
+
+gap:26px;
+
+margin-top:30px;
+
+}
+
+.social a{
+
+width:52px;
+
+height:52px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:22px;
 
 text-decoration:none;
 
@@ -294,143 +670,151 @@ border:1px solid rgba(255,255,255,.08);
 
 transition:.25s;
 
-overflow:hidden;
+}
 
-position:relative;
+.social a:hover{
+
+transform:translateY(-6px) scale(1.15);
+
+box-shadow:
+
+0 0 25px rgba(56,189,248,.45);
+
+color:var(--cyan);
 
 }
 
-.btn span{
+/* ==========================
+   Footer
+========================== */
 
-flex:1;
+.footer{
 
-margin-left:15px;
+margin-top:35px;
 
-font-weight:600;
+text-align:center;
 
 }
 
-.btn::after{
+.footer .line{
+
+width:100%;
+
+height:1px;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.15),
+transparent);
+
+margin-bottom:18px;
+
+}
+
+.footer p{
+
+font-size:13px;
+
+color:#8f9cb1;
+
+}
+
+.footer b{
+
+color:white;
+
+}
+
+/* ==========================
+   Animations
+========================== */
+
+.card{
+
+animation:cardAppear 1.2s ease forwards;
+
+opacity:0;
+
+}
+
+@keyframes cardAppear{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(60px)
+scale(.95);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:
+translateY(0)
+scale(1);
+
+}
+
+}
+
+/* ==========================
+   Glow
+========================== */
+
+.card::before{
 
 content:"";
 
 position:absolute;
 
-left:-100%;
+inset:-2px;
 
-top:0;
+border-radius:30px;
 
-width:60%;
+padding:2px;
 
-height:100%;
+background:linear-gradient(
+135deg,
+rgba(56,189,248,.6),
+rgba(139,92,246,.6),
+rgba(56,189,248,.6));
 
-background:
+-webkit-mask:
+linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
 
-linear-gradient(
+-webkit-mask-composite:xor;
 
-90deg,
+mask-composite:exclude;
 
-transparent,
+pointer-events:none;
 
-rgba(255,255,255,.25),
-
-transparent);
-
-transition:.7s;
-
-}
-
-.btn:hover::after{
-
-left:150%;
+opacity:.6;
 
 }
 
-.btn:hover{
+/* ==========================
+   Scrollbar
+========================== */
 
-transform:translateY(-5px);
+::-webkit-scrollbar{
 
-}
+width:0;
 
-.telegram:hover{
-
-border-color:#229ED9;
-
-box-shadow:0 0 25px #229ED9;
+height:0;
 
 }
 
-.vk:hover{
+/* ==========================
+   Mobile
+========================== */
 
-border-color:#0077ff;
-
-box-shadow:0 0 25px #0077ff;
-
-}
-
-.steam:hover{
-
-border-color:#66C0F4;
-
-box-shadow:0 0 25px #66C0F4;
-
-}
-
-/* ===========================
-    НИЖНИЕ ИКОНКИ
-=========================== */
-
-.social{
-
-margin-top:30px;
-
-display:flex;
-
-justify-content:center;
-
-gap:25px;
-
-}
-
-.social a{
-
-color:white;
-
-font-size:28px;
-
-transition:.25s;
-
-}
-
-.social a:hover{
-
-transform:translateY(-5px) scale(1.2);
-
-color:#38bdf8;
-
-}
-
-/* ===========================
-    FOOTER
-=========================== */
-
-footer{
-
-margin-top:30px;
-
-font-size:13px;
-
-text-align:center;
-
-color:#8b97aa;
-
-}
-
-/* ===========================
-    МОБИЛЬНЫЕ
-=========================== */
-
-@media(max-width:500px){
+@media (max-width:700px){
 
 .card{
 
@@ -440,17 +824,69 @@ padding:28px;
 
 }
 
+.avatar{
+
+width:120px;
+
+height:120px;
+
+}
+
+.ring1{
+
+width:138px;
+
+height:138px;
+
+}
+
+.ring2{
+
+width:156px;
+
+height:156px;
+
+}
+
 .nickname{
 
 font-size:28px;
 
 }
 
-.avatar{
+.btn{
 
-width:120px;
+padding:16px;
 
-height:120px;
+font-size:15px;
+
+}
+
+.social{
+
+gap:18px;
+
+}
+
+.social a{
+
+width:46px;
+
+height:46px;
+
+}
+
+}
+
+/* ==========================
+   Small phones
+========================== */
+
+@media (max-height:760px){
+
+.card{
+
+transform:scale(.92);
 
 }
 
