@@ -435,3 +435,107 @@ console.log(
 "%cNIKI_TSUNE V3.0",
 "color:#38bdf8;font-size:20px;font-weight:bold;"
 );
+// =======================
+// Music Player
+// =======================
+
+const tracks = [
+"МУЛЬТИВСЕЛЕННАЯ НА ПАУЗЕ",
+"404-й ЭТАЖ",
+"Поломанный код",
+"КАССЕТА ИЗ БУДУЩЕГО",
+"ЗВЁЗДНАЯ ПЫЛЬ",
+"НЕОН В ЛУЖАХ",
+"ПОСЛЕДНИЙ ТРОЛЛЕЙБУС",
+"ПИСЬМА ИЗ СНОВ",
+"КОМНАТА БЕЗ ВРЕМЕНИ",
+"КОСМОС В КАРМАНАХ",
+"ПЕПЕЛ КОМЕТ",
+"ПЕРЕЗАГРУЗКА ВСЕЛЕННОЙ"
+];
+
+const audio = document.getElementById("bgMusic");
+const title = document.querySelector(".music-title");
+const status = document.querySelector(".music-status");
+
+const play = document.getElementById("musicBtn");
+const next = document.getElementById("nextBtn");
+const prev = document.getElementById("prevBtn");
+
+let current = 0;
+
+function loadSong(){
+
+audio.src=`assets/music/${String(current+1).padStart(2,"0")}.mp3`;
+
+title.textContent=tracks[current];
+
+}
+
+loadSong();
+
+play.onclick=async()=>{
+
+if(audio.paused){
+
+await audio.play();
+
+status.textContent="Сейчас играет";
+
+play.innerHTML='<i class="fa-solid fa-pause"></i>';
+
+}else{
+
+audio.pause();
+
+status.textContent="Пауза";
+
+play.innerHTML='<i class="fa-solid fa-play"></i>';
+
+}
+
+};
+
+next.onclick=()=>{
+
+current++;
+
+if(current>=tracks.length) current=0;
+
+loadSong();
+
+audio.play();
+
+status.textContent="Сейчас играет";
+
+play.innerHTML='<i class="fa-solid fa-pause"></i>';
+
+};
+
+prev.onclick=()=>{
+
+current--;
+
+if(current<0) current=tracks.length-1;
+
+loadSong();
+
+audio.play();
+
+status.textContent="Сейчас играет";
+
+play.innerHTML='<i class="fa-solid fa-pause"></i>';
+
+};
+
+audio.onended=()=>{
+
+current++;
+
+if(current>=tracks.length) current=0;
+
+loadSong();
+
+audio.play();
+
+};
