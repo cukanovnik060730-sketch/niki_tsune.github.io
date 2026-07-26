@@ -435,107 +435,109 @@ console.log(
 "%cNIKI_TSUNE V3.0",
 "color:#38bdf8;font-size:20px;font-weight:bold;"
 );
-// =======================
+// ===============================
 // Music Player
-// =======================
+// ===============================
 
 const tracks = [
-"МУЛЬТИВСЕЛЕННАЯ НА ПАУЗЕ",
-"404-й ЭТАЖ",
-"Поломанный код",
-"КАССЕТА ИЗ БУДУЩЕГО",
-"ЗВЁЗДНАЯ ПЫЛЬ",
-"НЕОН В ЛУЖАХ",
-"ПОСЛЕДНИЙ ТРОЛЛЕЙБУС",
-"ПИСЬМА ИЗ СНОВ",
-"КОМНАТА БЕЗ ВРЕМЕНИ",
-"КОСМОС В КАРМАНАХ",
-"ПЕПЕЛ КОМЕТ",
-"ПЕРЕЗАГРУЗКА ВСЕЛЕННОЙ"
+    {
+        title: "Nebula Drift",
+        file: "assets/music/01.mp3"
+    },
+    {
+        title: "Echoes of the Void",
+        file: "assets/music/02.mp3"
+    },
+    {
+        title: "Dreams",
+        file: "assets/music/03.mp3"
+    }
 ];
 
 const audio = document.getElementById("bgMusic");
+const playBtn = document.getElementById("musicBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
 const title = document.querySelector(".music-title");
 const status = document.querySelector(".music-status");
 
-const play = document.getElementById("musicBtn");
-const next = document.getElementById("nextBtn");
-const prev = document.getElementById("prevBtn");
-
 let current = 0;
 
-function loadSong(){
+function loadTrack(index){
 
-audio.src=`assets/music/${String(current+1).padStart(2,"0")}.mp3`;
+    current = index;
 
-title.textContent=tracks[current];
+    audio.src = tracks[index].file;
 
-}
-
-loadSong();
-
-play.onclick=async()=>{
-
-if(audio.paused){
-
-await audio.play();
-
-status.textContent="Сейчас играет";
-
-play.innerHTML='<i class="fa-solid fa-pause"></i>';
-
-}else{
-
-audio.pause();
-
-status.textContent="Пауза";
-
-play.innerHTML='<i class="fa-solid fa-play"></i>';
+    title.textContent = tracks[index].title;
 
 }
 
-};
+loadTrack(current);
 
-next.onclick=()=>{
+playBtn.onclick = async ()=>{
 
-current++;
+    if(audio.paused){
 
-if(current>=tracks.length) current=0;
+        await audio.play();
 
-loadSong();
+        status.textContent = "Сейчас играет";
 
-audio.play();
+        playBtn.innerHTML =
+        '<i class="fa-solid fa-pause"></i>';
 
-status.textContent="Сейчас играет";
+    }else{
 
-play.innerHTML='<i class="fa-solid fa-pause"></i>';
+        audio.pause();
 
-};
+        status.textContent = "Пауза";
 
-prev.onclick=()=>{
+        playBtn.innerHTML =
+        '<i class="fa-solid fa-play"></i>';
 
-current--;
-
-if(current<0) current=tracks.length-1;
-
-loadSong();
-
-audio.play();
-
-status.textContent="Сейчас играет";
-
-play.innerHTML='<i class="fa-solid fa-pause"></i>';
+    }
 
 };
 
-audio.onended=()=>{
+nextBtn.onclick = ()=>{
 
-current++;
+    current++;
 
-if(current>=tracks.length) current=0;
+    if(current >= tracks.length)
+        current = 0;
 
-loadSong();
+    loadTrack(current);
 
-audio.play();
+    audio.play();
+
+    status.textContent = "Сейчас играет";
+
+    playBtn.innerHTML =
+    '<i class="fa-solid fa-pause"></i>';
+
+};
+
+prevBtn.onclick = ()=>{
+
+    current--;
+
+    if(current < 0)
+        current = tracks.length - 1;
+
+    loadTrack(current);
+
+    audio.play();
+
+    status.textContent = "Сейчас играет";
+
+    playBtn.innerHTML =
+    '<i class="fa-solid fa-pause"></i>';
+
+};
+
+audio.onended = ()=>{
+
+    nextBtn.click();
 
 };
