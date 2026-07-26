@@ -889,91 +889,157 @@ height:46px;
 transform:scale(.92);
 
 }
+/* ==========================
+   Music Player
+========================== */
+
 .music-player{
 
-position:fixed;
+    margin-top:30px;
 
-left:25px;
+    width:100%;
 
-bottom:25px;
+    padding:20px;
 
-display:flex;
+    box-sizing:border-box;
 
-align-items:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
-gap:15px;
+    gap:18px;
 
-padding:18px;
+    background:rgba(20,20,30,.75);
 
-background:rgba(20,20,30,.75);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 
-backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
 
-border-radius:20px;
+    border-radius:22px;
 
-border:1px solid rgba(255,255,255,.08);
-
-box-shadow:0 0 25px rgba(56,189,248,.25);
-
-z-index:999;
-
-}
-
-.music-player button{
-
-width:46px;
-
-height:46px;
-
-border:none;
-
-border-radius:50%;
-
-cursor:pointer;
-
-background:linear-gradient(135deg,#38bdf8,#8b5cf6);
-
-color:white;
-
-font-size:18px;
-
-transition:.2s;
-
-}
-
-.music-player button:hover{
-
-transform:scale(1.08);
+    box-shadow:
+        0 0 30px rgba(56,189,248,.22);
 
 }
 
 .music-info{
 
-display:flex;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
-flex-direction:column;
-
-margin-left:10px;
+    gap:4px;
 
 }
 
 .music-title{
 
-font-size:15px;
+    font-size:18px;
+    font-weight:700;
 
-font-weight:700;
+    color:#fff;
 
-color:#fff;
+    text-align:center;
 
 }
 
 .music-status{
 
-font-size:12px;
+    font-size:14px;
 
-color:#aaa;
-
-margin-top:2px;
+    color:#9ccfff;
 
 }
+
+.music-controls{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.music-controls button{
+
+    width:56px;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-size:20px;
+
+    background:linear-gradient(135deg,#38bdf8,#8b5cf6);
+
+    transition:.25s;
+
+    box-shadow:
+        0 0 25px rgba(56,189,248,.35);
+
+}
+
+.music-controls button:hover{
+
+    transform:translateY(-3px) scale(1.08);
+
+    box-shadow:
+        0 0 40px rgba(56,189,248,.6);
+
+}
+
+.music-controls button:active{
+
+    transform:scale(.96);
+
+}
+
+@media (max-width:768px){
+
+    .music-player{
+
+        margin-top:25px;
+
+        padding:16px;
+
+    }
+
+    .music-title{
+
+        font-size:16px;
+
+    }
+
+    .music-status{
+
+        font-size:13px;
+
+    }
+
+    .music-controls{
+
+        gap:14px;
+
+    }
+
+    .music-controls button{
+
+        width:50px;
+
+        height:50px;
+
+        font-size:18px;
+
+    }
+
 }
